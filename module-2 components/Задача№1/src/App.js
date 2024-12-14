@@ -22,7 +22,7 @@ export const App = () => {
 
 	const onAddButtonClick = () => {
 		if (isValueValid) {
-			// Проверка на валидность
+
 			setList([...list, { id: Date.now(), value }]);
 			setValue('');
 			setError('');
@@ -46,7 +46,7 @@ export const App = () => {
 					</button>
 					<button
 						className={styles.button}
-						disabled={!isValueValid} // Используем правильную переменную
+						disabled={!isValueValid}
 						onClick={onAddButtonClick}
 					>
 						Добавить в список
