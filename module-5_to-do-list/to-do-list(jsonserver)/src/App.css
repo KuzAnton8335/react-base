@@ -11,6 +11,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 100vh;
 	background: rgba(1, 93, 254, 1);
 	background: linear-gradient(135deg, rgba(1, 93, 254, 1), rgba(112, 152, 212, 1));
 }
@@ -42,6 +43,7 @@ body {
 .button-box {
 	display: flex;
 	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 .btn {
