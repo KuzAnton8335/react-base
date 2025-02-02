@@ -53,5 +53,30 @@ export const useTaskManagement = (setData) => {
 		}
 	};
 
-	return { task, setTask, editTaskId, setEditTaskId, addTask, editTask, deleteTask };
+	const updateTask = async (id, updatedTask) => {
+		try {
+			const response = await fetch(`${API_URL}/${id}`, {
+				method: 'PUT',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(updatedTask),
+			});
+			const result = await response.json();
+			setData((prevData) =>
+				prevData.map((todo) => (todo.id === id ? result : todo)),
+			);
+		} catch (err) {
+			console.error(err);
+		}
+	};
+
+	return {
+		task,
+		setTask,
+		editTaskId,
+		setEditTaskId,
+		addTask,
+		editTask,
+		deleteTask,
+		updateTask,
+	};
 };

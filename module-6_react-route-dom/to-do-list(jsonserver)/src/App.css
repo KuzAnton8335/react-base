@@ -69,12 +69,80 @@ body {
 	border-radius: 5px;
 }
 
+.task-text {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	width: 150px;
+	text-decoration: none;
+	color: #222;
+}
 .task-box p {
 	margin-bottom: 0;
 }
 
 .task-box a {
 	padding-top: 10px;
+}
+
+.task-container {
+	border: 2px solid #222;
+	border-radius: 10px;
+	padding: 12px;
+}
+
+.task-number {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.task-title {
+	font-weight: 400;
+	font-size: 18px;
+}
+
+.task-input {
+	width: 100%;
+	margin-bottom: 10px;
+}
+.saves-buttons {
+	margin-bottom: 10px;
+}
+.task-button-save {
+	border-radius: 5px;
+	background-color: rgb(130, 130, 195);
+	color: white;
+}
+
+.task-button-cancel {
+	border-radius: 5px;
+	background-color: rgb(227, 56, 59);
+	color: white;
+}
+.button {
+	border: none;
+	outline: none;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.task-buttons {
+	display: flex;
+	align-items: center;
+	column-gap: 8px;
+}
+
+.task-button-edit {
+	background-color: rgb(19, 19, 226);
+	color: white;
+	border-radius: 5px;
+}
+
+.task-button-delete {
+	background-color: red;
+	color: white;
+	border-radius: 5px;
 }
 
 .update-task-link,
