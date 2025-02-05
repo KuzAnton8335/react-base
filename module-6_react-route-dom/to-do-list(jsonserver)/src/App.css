@@ -144,6 +144,10 @@ body {
 	color: white;
 	border-radius: 5px;
 }
+.task-button-arrow {
+	background-color: #cac1c1;
+	border-radius: 5px;
+}
 
 .update-task-link,
 .delete-task-link {
@@ -198,4 +202,23 @@ body {
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.not-found {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.not-found__title {
+	font-size: 2em;
+	color: red;
+}
+
+.not-found__descr {
+	font-size: 1.2em;
+}
+
+.not-found__link {
+	text-decoration: none;
+	color: blue;
 }

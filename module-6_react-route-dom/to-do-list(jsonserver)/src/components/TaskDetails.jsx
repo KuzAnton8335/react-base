@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, useParams } from 'react-router-dom';
 import '../App.css';
 import { API_URL } from '../const.js';
 import { useTaskManagement } from './hooks/useTaskManagement';
+import { Loader } from './Loader.jsx';
 
 export const TaskDetail = () => {
 	const { id } = useParams();
-	const navigate = useNavigate(); // Initialize useNavigate
+	const navigate = useNavigate();
 	const [task, setTask] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedTitle, setEditedTitle] = useState('');
@@ -26,7 +27,7 @@ export const TaskDetail = () => {
 	}, [id]);
 
 	if (!task) {
-		return <p>Loading...</p>;
+		return <Loader />;
 	}
 
 	const handleEdit = () => {
@@ -54,9 +55,13 @@ export const TaskDetail = () => {
 		navigate('/'); // Redirect to the homepage
 	};
 
+	const handlBack = () => {
+		navigate(-1);
+	};
+
 	return (
 		<div className="task-container">
-			<p className="task-number">Task ID: {task.id}</p>
+			<p className="task-number"> Номер задачи: {task.id}</p>
 			{isEditing ? (
 				<div>
 					<input
@@ -67,13 +72,13 @@ export const TaskDetail = () => {
 					/>
 					<div className="task-buttons saves-buttons">
 						<button className="task-button-save button" onClick={handleSave}>
-							Save
+							Сохранить
 						</button>
 						<button
 							className="task-button-cancel button"
 							onClick={handleCancel}
 						>
-							Cancel
+							Отменить
 						</button>
 					</div>
 				</div>
@@ -81,16 +86,24 @@ export const TaskDetail = () => {
 				<p className="task-title">{task.title}</p>
 			)}
 			<div className="task-buttons">
+				<button className="task-button-arrow button" onClick={handlBack}>
+					<img
+						src="../../public/arrow.svg"
+						alt="стрелка назад"
+						width={24}
+						height={24}
+					/>
+				</button>
 				{!isEditing && (
 					<button className="task-button-edit button" onClick={handleEdit}>
-						Edit Task
+						Редактировать Задачу
 					</button>
 				)}
 				<button
 					className="task-button-delete button"
 					onClick={handleDelete} // Use the updated handleDelete function
 				>
-					Delete Task
+					Удалить Задачу
 				</button>
 			</div>
 		</div>
