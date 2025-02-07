@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { API_URL } from '../../const';
+import { API_URL } from '../const';
 
 export const useTaskManagement = (setData) => {
 	const [task, setTask] = useState('');

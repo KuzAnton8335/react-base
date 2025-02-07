@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { API_URL } from '../../const';
+import { API_URL } from '../const';
 
-export const useFetchTasks = () => {
-	const [data, setData] = useState([]);
+export const useFetchTasks = (initialState = []) => {
+	const [data, setData] = useState(initialState);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 

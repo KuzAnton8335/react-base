@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../App.css';
-import { API_URL } from '../const.js';
-import { useTaskManagement } from './hooks/useTaskManagement';
+import '../../App.css';
+import { API_URL } from '../../const.js';
+import { useTaskManagement } from '../../hooks/useTaskManagement.js';
 import { Loader } from './Loader.jsx';
 
 export const TaskDetail = () => {
@@ -11,9 +11,9 @@ export const TaskDetail = () => {
 	const [task, setTask] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedTitle, setEditedTitle] = useState('');
-	const { deleteTask, updateTask } = useTaskManagement(() => {}); // Pass a no-op function
+	const { deleteTask, updateTask } = useTaskManagement(() => {});
 
-	// Fetch task by ID from the server
+	// Получение задачи по идентификатору с сервера
 	useEffect(() => {
 		fetch(`${API_URL}/${id}`)
 			.then((response) => response.json())
@@ -22,7 +22,7 @@ export const TaskDetail = () => {
 				setEditedTitle(data.title);
 			})
 			.catch((error) =>
-				console.error('Error occurred while loading the task...', error),
+				console.error('При загрузке задачи произошла ошибка...', error),
 			);
 	}, [id]);
 
@@ -31,12 +31,12 @@ export const TaskDetail = () => {
 	}
 
 	const handleEdit = () => {
-		// Toggle edit mode
+		// Переключение режима редактирования
 		setIsEditing(true);
 	};
 
 	const handleSave = () => {
-		// Save the updated task title
+		// Сохраните обновленное название задачи
 		const updatedTask = { ...task, title: editedTitle };
 		updateTask(task.id, updatedTask);
 		setTask(updatedTask);
@@ -44,15 +44,15 @@ export const TaskDetail = () => {
 	};
 
 	const handleCancel = () => {
-		// Cancel editing and reset the title
+		// Отмените редактирование и сбросьте заголовок
 		setEditedTitle(task.title);
 		setIsEditing(false);
 	};
 
 	const handleDelete = async () => {
-		// Delete the task and navigate to the homepage
+		// Удалите задачу и перейдите на главную страницу
 		await deleteTask(task.id);
-		navigate('/'); // Redirect to the homepage
+		navigate('/');
 	};
 
 	const handlBack = () => {

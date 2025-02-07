@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import '../App.css';
+import '../../App.css';
+import { useFetchTasks } from '../../hooks/useFetchTask';
+import { useSearch } from '../../hooks/useSearch';
+import { useTaskManagement } from '../../hooks/useTaskManagement';
 import { ErrorMessage } from './ErrorMessage';
-import { useFetchTasks } from './hooks/useFetchTask';
-import { useSearch } from './hooks/useSearch';
-import { useTaskManagement } from './hooks/useTaskManagement';
 import { Loader } from './Loader';
 import { SearchBar } from './SearchBar';
 import { TaskInput } from './TaskInput';
 import { TaskList } from './TaskList';
 
-export const Form = () => {
-	const { data = [], loading, error, setData } = useFetchTasks();
+export const MainPage = () => {
+	const { data, loading, error, setData } = useFetchTasks([]);
 	const { task, setTask, editTaskId, setEditTaskId, addTask, editTask, deleteTask } =
 		useTaskManagement(setData);
 	const { searchTerm, handleSearchChange } = useSearch();
