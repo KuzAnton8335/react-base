@@ -1,11 +1,11 @@
 import './App.css';
-import { Form } from './components/Form';
+import { MainPage } from './components/pages/MainPage';
 
 export const App = () => {
 	return (
 		<div className="container">
 			<h1 className="text-center">Мой список задач!</h1>
-			<Form />
+			<MainPage />
 		</div>
 	);
 };

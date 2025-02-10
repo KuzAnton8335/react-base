@@ -53,8 +53,14 @@ body {
 .btn:first-child {
 	margin-left: 0;
 }
+.btn-task {
+	margin-bottom: 15px;
+}
 .form-control {
 	width: 80%;
+}
+.form-control__input {
+	margin-bottom: 15px;
 }
 
 .task-box {
