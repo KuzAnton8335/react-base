@@ -1,64 +1,49 @@
-import PropTypes from 'prop-types';
+import store from '../store';
 import FieldLayout from './FieldLayout';
-import './gameboard.module.css';
 
-export const FieldContainer = ({
-	field,
-	currentPlayer,
-	setField,
-	setCurrentPlayer,
-	setIsGameEnded,
-	setIsDraw,
-	isGameEnded,
-}) => {
-	const WIN_PATTERNS = [
-		[0, 1, 2],
-		[3, 4, 5],
-		[6, 7, 8], // Варианты побед по горизонтали
-		[0, 3, 6],
-		[1, 4, 7],
-		[2, 5, 8], // Варианты побед по вертикали
-		[0, 4, 8],
-		[2, 4, 6], // Варианты побед по диагонали
-	];
+export const FieldContainer = () => {
+	const state = store.getState();
+
 	const handleCellClick = (index) => {
-		if (field[index] || isGameEnded) return; // Игнорируем клик если клетка занята или игра окончена
+		if (state.field[index] || state.isGameEnded) return;
 
-		const newField = [...field];
-		newField[index] = currentPlayer;
-		setField(newField);
+		const newField = [...state.field];
+		newField[index] = state.currentPlayer;
 
-		// Проверяем условия победы
-		if (checkWin(newField, currentPlayer)) {
-			setIsGameEnded(true); // Игра завершена
+		store.dispatch({ type: 'SET_FIELD', payload: newField });
+
+		if (checkWin(newField, state.currentPlayer)) {
+			store.dispatch({ type: 'SET_IS_GAME_ENDED', payload: true });
 			return;
 		}
 
-		// Проверяем на ничью
 		if (newField.every((cell) => cell !== '')) {
-			setIsDraw(true); // Ничья
+			store.dispatch({ type: 'SET_IS_DRAW', payload: true });
 			return;
 		}
 
-		// Меняем игрока
-		setCurrentPlayer(currentPlayer === 'X' ? '0' : 'X');
+		store.dispatch({
+			type: 'SET_CURRENT_PLAYER',
+			payload: state.currentPlayer === 'X' ? '0' : 'X',
+		});
 	};
 
 	const checkWin = (field, player) => {
+		const WIN_PATTERNS = [
+			[0, 1, 2],
+			[3, 4, 5],
+			[6, 7, 8],
+			[0, 3, 6],
+			[1, 4, 7],
+			[2, 5, 8],
+			[0, 4, 8],
+			[2, 4, 6],
+		];
+
 		return WIN_PATTERNS.some((pattern) =>
 			pattern.every((index) => field[index] === player),
 		);
 	};
 
-	return <FieldLayout field={field} onCellClick={handleCellClick} />;
-};
-
-FieldContainer.propTypes = {
-	field: PropTypes.arrayOf(PropTypes.string).isRequired,
-	currentPlayer: PropTypes.oneOf(['X', '0']).isRequired,
-	setField: PropTypes.func.isRequired,
-	setCurrentPlayer: PropTypes.func.isRequired,
-	setIsGameEnded: PropTypes.func.isRequired,
-	setIsDraw: PropTypes.func.isRequired,
-	isGameEnded: PropTypes.bool.isRequired,
+	return <FieldLayout field={state.field} onCellClick={handleCellClick} />;
 };

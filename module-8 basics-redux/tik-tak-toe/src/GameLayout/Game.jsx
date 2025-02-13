@@ -1,37 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FieldContainer } from '../Fileld/Field';
 import { InformationContainer } from '../Information/information';
+import store from '../store'; // Импортируем хранилище
 import styles from './game.module.css'; // CSS-модуль для стилей
 import { GameLayout } from './GameLayout';
 
 export const Game = () => {
-	const [currentPlayer, setCurrentPlayer] = useState('X');
-	const [isGameEnded, setIsGameEnded] = useState(false);
-	const [isDraw, setIsDraw] = useState(false);
-	const [field, setField] = useState(Array(9).fill(''));
+	const [state, setState] = useState(store.getState()); // Локальное состояние для синхронизации с Redux
+
+	useEffect(() => {
+		// Подписываемся на изменения в хранилище
+		const unsubscribe = store.subscribe(() => {
+			setState(store.getState());
+		});
+
+		// Отписываемся при размонтировании компонента
+		return () => unsubscribe();
+	}, []);
 
 	const resetGame = () => {
-		setCurrentPlayer('X');
-		setIsGameEnded(false);
-		setIsDraw(false);
-		setField(Array(9).fill(''));
+		store.dispatch({ type: 'RESET_GAME' }); // Отправляем действие для сброса игры
 	};
 
 	return (
 		<GameLayout>
 			<InformationContainer
-				currentPlayer={currentPlayer}
-				isGameEnded={isGameEnded}
-				isDraw={isDraw}
+				currentPlayer={state.currentPlayer}
+				isGameEnded={state.isGameEnded}
+				isDraw={state.isDraw}
 			/>
 			<FieldContainer
-				field={field}
-				currentPlayer={currentPlayer}
-				setField={setField}
-				setCurrentPlayer={setCurrentPlayer}
-				setIsGameEnded={setIsGameEnded}
-				setIsDraw={setIsDraw}
-				isGameEnded={isGameEnded}
+				field={state.field}
+				currentPlayer={state.currentPlayer}
+				isGameEnded={state.isGameEnded}
 			/>
 			<button onClick={resetGame} className={styles.btnReset}>
 				Начать заново
