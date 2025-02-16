@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import store from '../store';
 import './information.module.css'; // CSS-модуль для стилей
@@ -25,10 +24,4 @@ export const InformationContainer = () => {
 				: `Ходит: ${currentPlayer}`}
 		</InformationLayout>
 	);
-};
-
-InformationContainer.propTypes = {
-	currentPlayer: PropTypes.oneOf(['X', '0']).isRequired,
-	isGameEnded: PropTypes.bool.isRequired,
-	isDraw: PropTypes.bool.isRequired,
 };
