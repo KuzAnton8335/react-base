@@ -23,7 +23,7 @@ export const Form = () => {
 			dispatch(editTask({ id: editTaskId, title: task }));
 			setEditTaskId(null);
 		} else {
-			dispatch(addTask({ id: Date.now(), title: task, completed: false }));
+			dispatch(addTask({ title: task, completed: false }));
 		}
 		setTask('');
 	};
