@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types'; // CSS-модуль для стилей
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styles from './gameboard.module.css';
 
-const FieldLayout = ({ field, onCellClick }) => {
+export const FieldLayoutContainer = ({ field, onCellClick }) => {
 	return (
 		<div className={styles.fieldLayout}>
 			{field.map((cell, index) => (
@@ -17,9 +18,9 @@ const FieldLayout = ({ field, onCellClick }) => {
 	);
 };
 
-FieldLayout.propTypes = {
+FieldLayoutContainer.propTypes = {
 	field: PropTypes.arrayOf(PropTypes.string).isRequired,
 	onCellClick: PropTypes.func.isRequired,
 };
 
-export default FieldLayout;
+export const FieldLayout = connect()(FieldLayoutContainer);

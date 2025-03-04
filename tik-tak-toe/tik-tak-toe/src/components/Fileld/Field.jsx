@@ -1,21 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import {
 	setCurrentPlayer,
 	setField,
 	setIsDraw,
 	setIsGameEnded,
 } from '../../actions/actions.js';
-import FieldLayout from './FieldLayout';
+import { FieldLayout } from './FieldLayout';
 
-export const FieldContainer = () => {
-	const dispatch = useDispatch();
+class FieldContainer extends Component {
+	// const dispatch = useDispatch();
 
 	// Выберите только необходимые части состояния
-	const field = useSelector((state) => state.field);
-	const currentPlayer = useSelector((state) => state.currentPlayer);
-	const isGameEnded = useSelector((state) => state.isGameEnded);
+	// const field = useSelector((state) => state.field);
+	// const currentPlayer = useSelector((state) => state.currentPlayer);
+	// const isGameEnded = useSelector((state) => state.isGameEnded);
 
-	const handleCellClick = (index) => {
+	handleCellClick = (index) => {
+		const { field, currentPlayer, isGameEnded, dispatch } = this.props;
 		if (field[index] || isGameEnded) return;
 
 		const newField = [...field];
@@ -23,7 +25,7 @@ export const FieldContainer = () => {
 
 		dispatch(setField(newField));
 
-		if (checkWin(newField, currentPlayer)) {
+		if (this.checkWin(newField, currentPlayer)) {
 			dispatch(setIsGameEnded(true));
 			return;
 		}
@@ -36,7 +38,7 @@ export const FieldContainer = () => {
 		dispatch(setCurrentPlayer(currentPlayer === 'X' ? '0' : 'X'));
 	};
 
-	const checkWin = (field, player) => {
+	checkWin = (field, player) => {
 		const WIN_PATTERNS = [
 			[0, 1, 2],
 			[3, 4, 5],
@@ -52,6 +54,16 @@ export const FieldContainer = () => {
 			pattern.every((index) => field[index] === player),
 		);
 	};
+	render() {
+		const { field } = this.props;
+		return <FieldLayout field={field} onCellClick={this.handleCellClick} />;
+	}
+}
 
-	return <FieldLayout field={field} onCellClick={handleCellClick} />;
-};
+const mapStateToProps = (state) => ({
+	field: state.field,
+	currentPlayer: state.currentPlayer,
+	isGameEnded: state.isGameEnded,
+});
+
+export default connect(mapStateToProps)(FieldContainer);
