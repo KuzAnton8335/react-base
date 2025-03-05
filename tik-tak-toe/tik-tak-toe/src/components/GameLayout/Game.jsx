@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { setResetGame } from '../../actions/actions.js';
 import FieldContainer from '../Fileld/Field';
 import InformationContainer from '../Information/information';
-import styles from './game.module.css';
 import GameLayout from './GameLayout';
 
 class Game extends Component {
@@ -35,7 +34,10 @@ class Game extends Component {
 					currentPlayer={currentPlayer}
 					isGameEnded={isGameEnded}
 				/>
-				<button onClick={this.handleResetGame} className={styles.btnReset}>
+				<button
+					onClick={this.handleResetGame}
+					className="mt-[20px] px-[16px] py-[8px] border-none cursor-pointer bg-[#783478] text-white"
+				>
 					Начать заново
 				</button>
 			</GameLayout>

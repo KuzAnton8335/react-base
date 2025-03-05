@@ -1,11 +1,15 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './game.module.css'; // CSS-модуль для стилей
+import './game.module.css'; // CSS-модуль для стилей
 
 class GameLayout extends Component {
 	render() {
 		const { children } = this.props;
-		return <div className={styles.GameLayout}>{children}</div>;
+		return (
+			<div className="flex flex-col justify-center items-center mt-[150px] mb-[150px]">
+				{children}
+			</div>
+		);
 	}
 }
 

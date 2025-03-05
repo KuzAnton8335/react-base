@@ -1,10 +1,10 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from './information.module.css'; // CSS-модуль для стилей
+import './information.module.css'; // CSS-модуль для стилей
 class InformationLayout extends Component {
 	render() {
 		const { children } = this.props;
-		return <div className={styles.InformationLayout}>{children}</div>;
+		return <div className="text-[25px] text-center pb-[15px]">{children}</div>;
 	}
 }
 

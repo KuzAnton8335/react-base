@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .InformationLayout {
 	font-size: 25px;
 	text-align: center;

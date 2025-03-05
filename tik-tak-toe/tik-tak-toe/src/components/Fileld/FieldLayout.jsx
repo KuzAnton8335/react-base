@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styles from './gameboard.module.css';
+import './gameboard.module.css';
 
 export const FieldLayoutContainer = ({ field, onCellClick }) => {
 	return (
-		<div className={styles.fieldLayout}>
+		<div className="grid grid-cols-[repeat(3,100px)]">
 			{field.map((cell, index) => (
 				<button
 					key={index}
 					onClick={() => onCellClick(index)}
-					className={styles.cell}
+					className="w-[100px] h-[100px] border border-black box-border flex justify-center items-center cursor-pointer"
 				>
 					{cell}
 				</button>
